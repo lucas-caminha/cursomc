@@ -9,20 +9,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.lucas.cursospring.domain.Categoria;
-import br.com.lucas.cursospring.services.CategoriaService;
+import br.com.lucas.cursospring.domain.Cliente;
+import br.com.lucas.cursospring.services.ClienteService;
 
 @RestController
-@RequestMapping(value = "/categorias")
-public class CategoriaResource {
-	
+@RequestMapping(value = "/clientes")
+public class ClienteResource {
+
 	@Autowired
-	private CategoriaService categoriaService;
+	private ClienteService clienteService;
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> listar(@PathVariable Integer id) {	
-		Optional<Categoria> categoria = categoriaService.busca(id);
-		return ResponseEntity.ok().body(categoria);
+	public ResponseEntity<?> listar(@PathVariable Integer id) {
+		Optional<Cliente> cliente = clienteService.busca(id);
+		return ResponseEntity.ok().body(cliente);
 	}
 	
 }
