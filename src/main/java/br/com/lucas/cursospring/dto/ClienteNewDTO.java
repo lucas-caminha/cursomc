@@ -1,18 +1,32 @@
 package br.com.lucas.cursospring.dto;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class ClienteNewDTO  {
 
+	@Size(min = 5, max = 120, message = "O Tamanho deve estar entre 5 e 80 caracteres.")
+	@NotNull(message = "Preenchimento obrigatório")
 	private String nome;
+	@NotNull(message = "Preenchimento obrigatório")
+	@Email(message = "Email inválido")
 	private String email;
+	@NotNull(message = "Preenchimento obrigatório")
 	private String cpfCnpj;
 	private Integer tipo;
 	
+	@NotNull(message = "Preenchimento obrigatório")
 	private String logradouro;
+	@NotNull(message = "Preenchimento obrigatório")
 	private String numero;
 	private String complemento;
+	@NotNull(message = "Preenchimento obrigatório")
 	private String bairro;
+	@NotNull(message = "Preenchimento obrigatório")
 	private String cep; 
 	
+	@NotNull(message = "Preenchimento obrigatório")
 	private String telefone1;
 	private String telefone2;
 	private String telefone3;
