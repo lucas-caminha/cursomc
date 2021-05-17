@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.lucas.cursospring.domain.Categoria;
 import br.com.lucas.cursospring.dto.CategoriaDTO;
@@ -31,6 +32,7 @@ public class CategoriaService {
 		return categoria;
 	}
 
+	@Transactional
 	public Categoria insert(Categoria categoria) {
 		categoria.setId(null);
 		return categoriaRepository.save(categoria);
