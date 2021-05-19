@@ -7,7 +7,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import br.com.lucas.cursospring.domain.Cliente;
+import br.com.lucas.cursospring.services.validation.ClienteUpdate;
 
+@ClienteUpdate
 public class ClienteDTO implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
