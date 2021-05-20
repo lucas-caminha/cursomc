@@ -45,6 +45,7 @@ public class PedidoService {
 		pedido.setId(null);
 		pedido.setInstate(new Date());
 		pedido.getPagamento().setEstado(EstadoPagamento.PENDENTE);
+		pedido.getPagamento().setPedido(pedido);
 		if (pedido.getPagamento() instanceof PagamentoComBoleto) {
 			PagamentoComBoleto pagto = (PagamentoComBoleto) pedido.getPagamento();
 			boletoService.preencherPagamento(pagto, pedido.getInstate());
