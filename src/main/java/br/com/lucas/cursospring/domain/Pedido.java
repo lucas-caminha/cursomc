@@ -3,6 +3,7 @@ package br.com.lucas.cursospring.domain;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -51,6 +52,14 @@ public class Pedido implements Serializable {
 		this.instate = instate;
 		this.cliente = cliente;
 		this.enderecoDeEntrega = enderecoDeEntrega;
+	}
+	
+	public double getValorTotal() {
+		double soma = 0.0;
+		for(ItemPedido ip : itens) {
+			soma = soma + ip.getSubTotal();
+		}
+		return soma;
 	}
 
 	public Integer getId() {
