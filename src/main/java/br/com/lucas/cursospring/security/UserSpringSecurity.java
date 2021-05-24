@@ -73,4 +73,8 @@ public class UserSpringSecurity implements UserDetails {
 		return true;
 	}
 
+	public boolean hasHole(Perfil perfil) {
+		return getAuthorities().contains(new SimpleGrantedAuthority(perfil.getDescricao()));
+	}
+
 }

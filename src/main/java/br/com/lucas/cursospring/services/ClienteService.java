@@ -15,10 +15,13 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.lucas.cursospring.domain.Cidade;
 import br.com.lucas.cursospring.domain.Cliente;
 import br.com.lucas.cursospring.domain.Endereco;
+import br.com.lucas.cursospring.domain.enums.Perfil;
 import br.com.lucas.cursospring.domain.enums.TipoCliente;
 import br.com.lucas.cursospring.dto.ClienteDTO;
 import br.com.lucas.cursospring.dto.ClienteNewDTO;
 import br.com.lucas.cursospring.repository.ClienteRepository;
+import br.com.lucas.cursospring.security.UserSpringSecurity;
+import br.com.lucas.cursospring.services.exceptions.AuthorizationException;
 import br.com.lucas.cursospring.services.exceptions.DataIntegrityException;
 import br.com.lucas.cursospring.services.exceptions.ObjectNotFoundException;
 
@@ -32,6 +35,12 @@ public class ClienteService {
 	private ClienteRepository clienteRepository;
 	
 	public Optional<Cliente> find(Integer id) {
+		
+		UserSpringSecurity user = UserService.authenticated();
+		if (user == null || !user.hasHole(Perfil.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso Negado");
+		}
+		
 		Optional<Cliente> cliente = clienteRepository.findById(id);
 		if (cliente.isEmpty()) {
 			throw new ObjectNotFoundException("Objeto não encontrado. | ID: " + id + " | Tipo: " + Cliente.class.getName());
