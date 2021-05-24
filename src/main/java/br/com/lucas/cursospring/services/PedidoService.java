@@ -4,8 +4,12 @@ import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import br.com.lucas.cursospring.domain.Cliente;
 import br.com.lucas.cursospring.domain.ItemPedido;
 import br.com.lucas.cursospring.domain.PagamentoComBoleto;
 import br.com.lucas.cursospring.domain.Pedido;
@@ -13,6 +17,8 @@ import br.com.lucas.cursospring.domain.enums.EstadoPagamento;
 import br.com.lucas.cursospring.repository.ItemPedidoRepository;
 import br.com.lucas.cursospring.repository.PagamentoRepository;
 import br.com.lucas.cursospring.repository.PedidoRepository;
+import br.com.lucas.cursospring.security.UserSpringSecurity;
+import br.com.lucas.cursospring.services.exceptions.AuthorizationException;
 import br.com.lucas.cursospring.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -73,4 +79,21 @@ public class PedidoService {
 		
 		return pedido;
 	}
+	
+	
+	public Page<Pedido> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
+		UserSpringSecurity user = UserService.authenticated();
+		if (user == null) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		Optional<Cliente> cliente = clienteService.find(user.getId());
+		
+		if (cliente.isPresent()) {
+			return pedidoRepository.findByCliente(cliente.get(), pageRequest);
+		}
+		return null;
+	}
+	
+	
 }
