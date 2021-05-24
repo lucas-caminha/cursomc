@@ -20,6 +20,7 @@ import br.com.lucas.cursospring.domain.PagamentoComCartao;
 import br.com.lucas.cursospring.domain.Pedido;
 import br.com.lucas.cursospring.domain.Produto;
 import br.com.lucas.cursospring.domain.enums.EstadoPagamento;
+import br.com.lucas.cursospring.domain.enums.Perfil;
 import br.com.lucas.cursospring.domain.enums.TipoCliente;
 import br.com.lucas.cursospring.repository.CategoriaRepository;
 import br.com.lucas.cursospring.repository.CidadeRepository;
@@ -113,17 +114,22 @@ public class DBService {
 		estadoRepository.saveAll(Arrays.asList(est1, est2));
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
 
-		Cliente cli1 = new Cliente(null, "Lucas c", "lucas_santoscaminha@hotmail.com", "999.888.777-55", TipoCliente.PESSOAFISICA, pe.encode("lucas"));
+		Cliente cli1 = new Cliente(null, "Lucas c", "lucas@hotmail.com", "999.888.777-55", TipoCliente.PESSOAFISICA, pe.encode("lucas"));
+		Cliente cli2 = new Cliente(null, "Maria Ana", "maria@hotmail.com", "999.888.777-55", TipoCliente.PESSOAFISICA, pe.encode("maria"));
+		cli2.getTelefones().addAll(Arrays.asList("4894984654","654564894"));
+		cli2.addPerfil(Perfil.ADMIN);
 		
 		cli1.getTelefones().addAll(Arrays.asList("+55 71 98888-4444", "+608 201 774-6841"));
 		
 		Endereco e1 = new Endereco(null, "Rua Flores", "51", "Primeira casa da Rua", "Centro","65754-541", cli1, c1);
 		Endereco e2 = new Endereco(null, "Avenida Matos", "121", "Sala 502", "Centro","43212-231", cli1, c2);
+		Endereco e3 = new Endereco(null, "Avenida Floriano", "2106", null, "Centro", "3213123", cli2, c2);
 		
 		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+		cli2.getEnderecos().addAll(Arrays.asList(e3));
 		
-		clienteRepository.saveAll(Arrays.asList(cli1));
-		enderecoRepository.saveAll(Arrays.asList(e1, e2));
+		clienteRepository.saveAll(Arrays.asList(cli1, cli2));
+		enderecoRepository.saveAll(Arrays.asList(e1, e2, e3));
 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		Pedido ped1 = new Pedido(null, sdf.parse("30/09/2017 10:32"), cli1, e1);
