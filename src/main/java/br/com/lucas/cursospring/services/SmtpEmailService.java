@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 
+import br.com.lucas.cursospring.domain.Cliente;
+
 public class SmtpEmailService extends AbstractEmailService{
 
 	@Autowired
