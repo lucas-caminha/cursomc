@@ -18,6 +18,8 @@ public class ClienteNewDTO  {
 	@NotNull(message = "Preenchimento obrigatório")
 	private String cpfCnpj;
 	private Integer tipo;
+	@NotNull(message = "Preenchimento obrigatório")
+	private String senha;
 	
 	@NotNull(message = "Preenchimento obrigatório")
 	private String logradouro;
@@ -141,6 +143,14 @@ public class ClienteNewDTO  {
 
 	public void setCidadeId(Integer cidadeId) {
 		this.cidadeId = cidadeId;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 	
 }
